@@ -3,9 +3,6 @@ import db.PhoneBook;
 import Entities.PhoneNumber;
 import exceptions.MaxPhoneNumbersAmountException;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class Main {
     public static void main(String[] args) {
@@ -21,31 +18,30 @@ public class Main {
             System.out.println("Too much numbers in one contact.");
         }
 
-        List<PhoneNumber> contact_two_numbers = new ArrayList<>();
-        var contact_two = new Contact("name_two", "surname_two");
+        var contactTwo = new Contact("name_two", "surname_two");
         try {
-            contact_two.addNumber(new PhoneNumber("334"));
-            contact_two.addNumber(new PhoneNumber("333"));
-            contact_two.addNumber(new PhoneNumber("333"));
-            contact_two.addNumber(new PhoneNumber("334"));
+            contactTwo.addNumber(new PhoneNumber("334"));
+            contactTwo.addNumber(new PhoneNumber("333"));
+            contactTwo.addNumber(new PhoneNumber("333"));
+            contactTwo.addNumber(new PhoneNumber("334"));
         } catch (MaxPhoneNumbersAmountException e) {
             System.out.println("Too much numbers in one contact.");
         }
 
-        var contact_three = new Contact("name_three", "surname_three");
+        var contactThree = new Contact("name_three", "surname_three");
         try {
-            contact_three.addNumber(new PhoneNumber("325"));
-            contact_three.addNumber(new PhoneNumber("326"));
-            contact_three.addNumber(new PhoneNumber("327"));
-            contact_three.addNumber(new PhoneNumber("328"));
+            contactThree.addNumber(new PhoneNumber("325"));
+            contactThree.addNumber(new PhoneNumber("326"));
+            contactThree.addNumber(new PhoneNumber("327"));
+            contactThree.addNumber(new PhoneNumber("328"));
 
         } catch (MaxPhoneNumbersAmountException exception) {
             System.out.println("Too much numbers in one contact.");
         }
 
         phoneBook.addContact(contactOne);
-        phoneBook.addContact(contact_two);
-        phoneBook.addContact(contact_three);
+        phoneBook.addContact(contactTwo);
+        phoneBook.addContact(contactThree);
 
 
         for (Contact contact : phoneBook.getContacts()) {
