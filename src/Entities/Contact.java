@@ -1,58 +1,43 @@
 package Entities;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import exceptions.MaxPhoneNumbersAmountException;
+
+import java.util.*;
 
 public class Contact {
     private String name;
     private String surname;
-    private final List<Number> numbers;
+    private final Set<PhoneNumber> numbers;
 
-    private final int MAX_NUMBERS_COUNT = 3;
+    private static final int MAX_NUMBERS_COUNT = 3;
 
     public Contact(String name, String surname) {
         this.name = name;
         this.surname = surname;
-        this.numbers = new ArrayList<>();
+        this.numbers = new HashSet<>();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (!(o instanceof Contact)) {
-            return false;
-        }
-        var contactObject = (Contact) o;
-        if (!Objects.equals(this.surname, contactObject.surname)) {
-            return false;
-        }
-        return Objects.equals(this.name, contactObject.name);
-    }
-
-    public String get_full_name() {
+    public String getFullName() {
         var builder = new StringBuilder();
         var name = builder.append(this.name).append(" ").append(this.surname);
         return new String(name);
     }
 
-    public void change_name(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void change_surname(String surname) {
+    public void getSurname(String surname) {
         this.surname = surname;
     }
 
-    public void remove_number(Number number) {
+    public void removeNumber(PhoneNumber number) {
         this.numbers.remove(number);
     }
 
-    public void add_number(Number number) throws Exception {
-        if (this.numbers.size() >= this.MAX_NUMBERS_COUNT) {
-            throw new Exception("Max amount of numbers is " + this.MAX_NUMBERS_COUNT);
+    public void addNumber(PhoneNumber number) throws MaxPhoneNumbersAmountException {
+        if (this.numbers.size() >= MAX_NUMBERS_COUNT) {
+            throw new MaxPhoneNumbersAmountException("Max amount of numbers is " + MAX_NUMBERS_COUNT);
         }
         if (this.numbers.contains(number)) {
             return;
@@ -60,17 +45,36 @@ public class Contact {
         this.numbers.add(number);
     }
 
-    public List<Number> getNumbers() {
-        return this.numbers;
+    public Set<PhoneNumber> getNumbers() {
+        return Collections.unmodifiableSet(this.numbers);
     }
 
     public int getNumbersCount() {
         return this.numbers.size();
     }
 
-    public void updateNumber(Number numberToUpdate, Number newNumber) throws Exception {
-        this.remove_number(numberToUpdate);
-        this.add_number(newNumber);
+    public void updateNumber(PhoneNumber numberToUpdate, PhoneNumber newNumber) throws MaxPhoneNumbersAmountException {
+        this.removeNumber(numberToUpdate);
+        this.addNumber(newNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name, this.surname, this.numbers);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Contact contactObject)) {
+            return false;
+        }
+        if (!Objects.equals(this.surname, contactObject.surname)) {
+            return false;
+        }
+        return Objects.equals(this.name, contactObject.name);
     }
 
 }

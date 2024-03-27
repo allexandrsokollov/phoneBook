@@ -4,26 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Number {
+public class PhoneNumber {
     private String number;
 
 
-    public Number(String number) {
+    public PhoneNumber(String number) {
         this.number = number;
 
     }
 
-    public String get_number() {
+    public String getNumber() {
         return this.number;
     }
 
-    public void change_number(String number) {
+    public void changeNumber(String number) {
         this.number = number;
+    }
+
+
+    private List<Integer> getNumberDigits(PhoneNumber number) {
+        var result = new ArrayList<Integer>();
+
+        for (char ch : number.getNumber().toCharArray()) {
+            if (Character. isDigit(ch)) {
+                result.add((int) ch);
+            }
+        }
+        return result;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.get_number_digits(this));
+        return Objects.hash(this.getNumberDigits(this));
     }
 
 
@@ -32,12 +44,12 @@ public class Number {
         if (o == this) {
             return true;
         }
-        if (!(o instanceof Number)) {
+        if (!(o instanceof PhoneNumber)) {
             return false;
         }
 
-        var current_number_digits = this.get_number_digits(this);
-        var object_number_digits = this.get_number_digits((Number) o);
+        var current_number_digits = this.getNumberDigits(this);
+        var object_number_digits = this.getNumberDigits((PhoneNumber) o);
 
         if (current_number_digits.size() != object_number_digits.size()) {
             return false;
@@ -49,16 +61,5 @@ public class Number {
             }
         }
         return true;
-    }
-
-    private List<Integer> get_number_digits(Number number) {
-        var result = new ArrayList<Integer>();
-
-        for (char ch : number.get_number().toCharArray()) {
-            if (Character. isDigit(ch)) {
-                result.add((int) ch);
-            }
-        }
-        return result;
     }
 }
