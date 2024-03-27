@@ -18,9 +18,7 @@ public class Contact {
     }
 
     public String getFullName() {
-        var builder = new StringBuilder();
-        var name = builder.append(this.name).append(" ").append(this.surname);
-        return new String(name);
+        return this.surname + " " + this.name;
     }
 
     public void setName(String name) {
