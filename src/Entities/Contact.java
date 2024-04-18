@@ -9,23 +9,34 @@ public class Contact {
     private String surname;
     private final Set<PhoneNumber> numbers;
 
+    public Long contactId;
+
     private static final int MAX_NUMBERS_COUNT = 3;
 
-    public Contact(String name, String surname) {
+    public Contact(Long contactId, String name, String surname) {
         this.name = name;
         this.surname = surname;
         this.numbers = new HashSet<>();
+        this.contactId = contactId;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public String getFullName() {
         return this.surname + " " + this.name;
     }
 
+    public String getSurname() {
+        return this.surname;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public void getSurname(String surname) {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 

@@ -6,10 +6,12 @@ import java.util.Objects;
 
 public class PhoneNumber {
     private String number;
+    public Long phoneId;
 
 
-    public PhoneNumber(String number) {
+    public PhoneNumber(String number, Long phoneId) {
         this.number = number;
+        this.phoneId = phoneId;
 
     }
 
